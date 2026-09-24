@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Work+Sans:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+  --font-display: "Fraunces", serif;
+  --font-body: "Work Sans", sans-serif;
+
+  --color-sand: #EDE6D9;
+  --color-sand-dark: #E1D5BF;
+  --color-clay: #7C3F2E;
+  --color-clay-dark: #5E2E22;
+  --color-ink: #26221E;
+  --color-gold: #A67C2E;
+  --color-sage: #4F5F4D;
+  --color-sage-dark: #3C4A3B;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-ink);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-sand);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+  }
+  ::selection {
+    background-color: var(--color-clay);
+    color: var(--color-sand);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
