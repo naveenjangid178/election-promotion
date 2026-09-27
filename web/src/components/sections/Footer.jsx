@@ -1,207 +1,282 @@
-import { useState } from "react"
-import { MessageSquare, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button"
+import { Phone, MessageSquare, MapPin } from "lucide-react"
 
 const Footer = () => {
+  const phoneNumber = "9717222480"
 
   return (
-    <div className="bg-[#111827] text-white px-6 pt-16 pb-8 md:px-16 border-t border-zinc-800">
-      <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-zinc-800/80">
-        {/* Column 1: Representative Identity & Office Details */}
-        <div className="md:col-span-5 space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-600 text-zinc-950">
-              <AwardIcon size={20} />
+    <footer className="border-t border-zinc-800 bg-[#111827] px-6 pb-8 pt-16 text-white md:px-16">
+      <div className="mx-auto max-w-7xl">
+        {/* Main Footer */}
+        <div className="grid grid-cols-1 gap-12 border-b border-zinc-800/80 pb-14 md:grid-cols-12">
+          {/* Identity */}
+          <div className="space-y-5 md:col-span-5">
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-amber-600 shadow-lg">
+                <img
+                  src="./logo.png"
+                  alt="रविंद्र कुमार"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+
+              <div>
+                <h4 className="font-display text-xl font-bold tracking-tight">
+                  रविंद्र कुमार
+                </h4>
+
+                <p className="mt-0.5 text-xs font-medium text-amber-500">
+                  सरपंच · ग्राम पंचायत ढींगरिया
+                </p>
+              </div>
             </div>
-            <h4 className="font-display text-xl font-bold tracking-tight">
-              कैप्टन रघुवीर सिंह
-            </h4>
-          </div>
 
-          <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
-            चुनाव कार्यालय: पंचायत भवन के सामने, मुख्य बाज़ार रोड, ग्राम रामपुर
-            खेड़ा।
-            <br />
-            रोज़ सुबह 9 – शाम 7, रविवार ग्राम सभा।
-          </p>
+            <p className="max-w-md text-sm leading-7 text-zinc-400">
+              भारतीय सेना के पूर्व सैनिक और वर्तमान में ग्राम पंचायत ढींगरिया
+              के सरपंच। वर्ष 2018 से प्राकृतिक, जैविक एवं गौ-आधारित कृषि से
+              जुड़े हुए हैं।
+            </p>
 
-          <div className="flex items-center gap-3 pt-2">
-            <a
-              href="#"
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white transition-colors"
-            >
-              <Phone size={16} />
-            </a>
-            <a
-              href="#"
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white transition-colors"
-            >
-              <MessageSquare size={16} />
-            </a>
-            <a
-              href="#"
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white transition-colors"
-            >
-              <FacebookIcon size={16} />
-            </a>
-            <a
-              href="#"
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white transition-colors"
-            >
-              <InstagramIcon size={16} />
-            </a>
-          </div>
-        </div>
+            {/* Location */}
+            <div className="flex items-start gap-3 text-sm text-zinc-400">
+              <MapPin
+                size={18}
+                className="mt-0.5 shrink-0 text-amber-500"
+              />
 
-        {/* Column 2: Quick Links */}
-        <div className="md:col-span-3 space-y-3">
-          <h5 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">
-            त्वरित लिंक
-          </h5>
-          <ul className="space-y-2.5 text-xs text-zinc-300">
-            <li>
-              <a
-                href="#home"
-                className="hover:text-amber-500 transition-colors"
-              >
-                होम
-              </a>
-            </li>
-            <li>
-              <a
-                href="#manifesto"
-                className="hover:text-amber-500 transition-colors"
-              >
-                मेनिफेस्टो
-              </a>
-            </li>
-            <li>
-              <a
-                href="#complaints"
-                className="hover:text-amber-500 transition-colors"
-              >
-                शिकायत पोर्टल
-              </a>
-            </li>
-          </ul>
-        </div>
+              <div>
+                <p className="font-medium text-zinc-200">
+                  गाँव जयसिंहवास
+                </p>
 
-        <div className="md:col-span-1 space-y-3">
-          <h5 className="text-xs font-bold uppercase tracking-widest text-transparent select-none mb-4">
-            अन्य
-          </h5>
-          <ul className="space-y-2.5 text-xs text-zinc-300">
-            <li>
-              <a
-                href="#about"
-                className="hover:text-amber-500 transition-colors"
-              >
-                हमारे बारे में
-              </a>
-            </li>
-            <li>
-              <a
-                href="#achievements"
-                className="hover:text-amber-500 transition-colors"
-              >
-                उपलब्धियां
-              </a>
-            </li>
-            <li>
-              <a
-                href="#volunteer"
-                className="hover:text-amber-500 transition-colors"
-              >
-                स्वयंसेवक बनें
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Column 3: Helpline Box */}
-        <div className="md:col-span-3 rounded-2xl bg-zinc-900 border border-zinc-800 p-6 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 text-amber-500 text-xs font-bold uppercase tracking-wider mb-2">
-              <Phone size={14} />
-              <span>हेल्पलाइन</span>
+                <p className="mt-1 text-xs leading-5 text-zinc-500">
+                  ग्राम पंचायत ढींगरिया
+                </p>
+              </div>
             </div>
-            <p className="font-display text-2xl font-extrabold text-white tracking-tight mb-1">
-              1800-XXX-XXXX
+
+            {/* Social / Contact */}
+            <div className="flex items-center gap-3 pt-1">
+              {/* Phone */}
+              <a
+                href={`tel:${phoneNumber}`}
+                aria-label="फोन करें"
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-800 text-zinc-300 transition-all duration-200 hover:bg-amber-600 hover:text-white"
+              >
+                <Phone size={17} />
+              </a>
+
+              {/* WhatsApp */}
+              <a
+                href={`https://wa.me/91${phoneNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp पर संपर्क करें"
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-800 text-zinc-300 transition-all duration-200 hover:bg-amber-600 hover:text-white"
+              >
+                <MessageSquare size={17} />
+              </a>
+
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/sarpanchanju/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-800 text-zinc-300 transition-all duration-200 hover:bg-amber-600 hover:text-white"
+              >
+                <InstagramIcon size={18} />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-3 md:col-span-2">
+            <h5 className="mb-5 text-xs font-bold tracking-widest text-zinc-400">
+              त्वरित लिंक
+            </h5>
+
+            <ul className="space-y-3 text-sm text-zinc-300">
+              <li>
+                <a
+                  href="#home"
+                  className="transition-colors duration-200 hover:text-amber-500"
+                >
+                  होम
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#about"
+                  className="transition-colors duration-200 hover:text-amber-500"
+                >
+                  हमारे बारे में
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#manifesto"
+                  className="transition-colors duration-200 hover:text-amber-500"
+                >
+                  घोषणापत्र
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#initiatives"
+                  className="transition-colors duration-200 hover:text-amber-500"
+                >
+                  प्रमुख पहल
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Other Links */}
+          <div className="space-y-3 md:col-span-2">
+            <h5 className="mb-5 text-xs font-bold tracking-widest text-zinc-400">
+              अन्य
+            </h5>
+
+            <ul className="space-y-3 text-sm text-zinc-300">
+              <li>
+                <a
+                  href="#gallery"
+                  className="transition-colors duration-200 hover:text-amber-500"
+                >
+                  गैलरी
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#jan-sujav"
+                  className="transition-colors duration-200 hover:text-amber-500"
+                >
+                  जन-सुझाव पोर्टल
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#connect"
+                  className="transition-colors duration-200 hover:text-amber-500"
+                >
+                  संपर्क करें
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Box */}
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6 md:col-span-3">
+            <div className="mb-5 flex items-center gap-2 text-amber-500">
+              <Phone size={15} />
+
+              <span className="text-xs font-bold tracking-wider">
+                संपर्क
+              </span>
+            </div>
+
+            <p className="font-display text-2xl font-extrabold tracking-tight text-white">
+              9717222480
             </p>
-            <p className="text-[11px] text-zinc-400 mb-6">
-              WhatsApp: +91-98XXX-XXXXX • सुबह 8 – रात 8
+
+            <p className="mt-2 text-xs leading-5 text-zinc-500">
+              ग्राम पंचायत ढींगरिया से जुड़े सुझाव, संपर्क एवं जन-संवाद के लिए
+              संपर्क करें।
+            </p>
+
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              {/* Call */}
+              <a
+                href={`tel:${phoneNumber}`}
+                className="flex items-center justify-center gap-2 rounded-xl bg-amber-600 px-3 py-3 text-xs font-bold text-zinc-950 transition-colors duration-200 hover:bg-amber-500"
+              >
+                <Phone size={14} />
+                कॉल करें
+              </a>
+
+              {/* WhatsApp */}
+              <a
+                href={`https://wa.me/91${phoneNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 px-3 py-3 text-xs font-bold text-white transition-colors duration-200 hover:border-amber-600 hover:bg-amber-600"
+              >
+                <MessageSquare size={14} />
+                WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <div className="flex flex-col gap-5 pt-8 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-1">
+            <p className="text-xs text-zinc-500">
+              © 2026 रविंद्र कुमार · ग्राम पंचायत ढींगरिया
+            </p>
+
+            <p className="text-[11px] text-zinc-600">
+              गाँव जयसिंहवास · ग्राम पंचायत ढींगरिया
             </p>
           </div>
 
-          <Button className="w-full rounded-xl bg-amber-600 py-4 text-xs font-bold text-zinc-950 hover:bg-amber-500 transition-colors">
-            अभी कॉल करें
-          </Button>
+          <a
+            href="https://www.instagram.com/sarpanchanju/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-xs text-zinc-500 transition-colors duration-200 hover:text-amber-500"
+          >
+            <InstagramIcon size={15} />
+            <span>@sarpanchanju</span>
+          </a>
         </div>
       </div>
+    </footer>
+  )
+}
 
-      {/* Copyright & Disclaimer Bar */}
-      <div className="mx-auto max-w-7xl pt-8 flex flex-col items-center justify-between gap-4 text-xs text-zinc-500 md:flex-row">
-        <span>
-          © 2026 कैप्टन रघुवीर सिंह चुनाव अभियान • सर्वाधिकार सुरक्षित
-        </span>
-        <span>Designed with pride in India • चुनाव आयोग नियमों के अनुकूल</span>
-      </div>
-    </div>
-  );
-};
-
-function AwardIcon({ size }) {
+/* Instagram Brand Icon */
+function InstagramIcon({ size = 20 }) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
-      <circle cx="12" cy="8" r="6" />
-      <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+      <rect
+        x="3"
+        y="3"
+        width="18"
+        height="18"
+        rx="5"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+
+      <circle
+        cx="12"
+        cy="12"
+        r="4"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+
+      <circle
+        cx="17.5"
+        cy="6.5"
+        r="1"
+        fill="currentColor"
+      />
     </svg>
-  );
+  )
 }
 
-function FacebookIcon({ size }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ size }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  );
-}
-
-export default Footer;
+export default Footer

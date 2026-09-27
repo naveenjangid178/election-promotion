@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Menu,
@@ -8,20 +8,35 @@ import {
 } from "lucide-react"
 
 const links = [
-  ["About Us", "about"],
-  ["Manifesto", "manifesto"],
-  ["Connect", "connect"],
+  ["हमारे बारे में", "about"],
+  ["घोषणापत्र", "manifesto"],
+  ["संपर्क करें", "connect"],
 ]
 
 const galleryLinks = [
-  ["Images", "gallery-images"],
-  ["Videos", "gallery-videos"],
-  ["All", "gallery"],
+  ["तस्वीरें", "gallery-images"],
+  ["वीडियो", "gallery-videos"],
+  ["सभी", "gallery"],
 ]
 
 export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [galleryOpen, setGalleryOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30)
+    }
+
+    handleScroll()
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({
@@ -40,48 +55,33 @@ export default function Nav() {
         duration: 0.7,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className="fixed left-0 right-0 top-0 z-50"
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#172747]/70 shadow-lg backdrop-blur-xl"
+          : "bg-white/5 backdrop-blur-md"
+      }`}
     >
-      {/* TOP INFORMATION BAR */}
-      <div className="hidden bg-[#0d1b35] px-6 py-2 text-xs text-white/80 lg:block">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <div>
-            Your Name
-          </div>
-
-          <div className="flex items-center gap-6">
-            <span>Gallery</span>
-            <span>About Us</span>
-            <span>Connect</span>
-          </div>
-        </div>
-      </div>
-
       {/* MAIN NAVBAR */}
-      <div className="border-b border-white/10 bg-[#172747]">
-        <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
+      <div
+        className={`transition-all duration-300 ${
+          scrolled
+            ? "border-b border-white/10"
+            : "border-b border-white/5"
+        }`}
+      >
+        <div className="mx-auto flex h-[64px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
 
-          {/* LOGO / NAME */}
+          {/* LOGO */}
           <button
             onClick={() => scrollToSection("home")}
-            className="flex items-center gap-3"
+            className="flex cursor-pointer items-center gap-3"
           >
-            {/* Logo Box */}
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500 text-white shadow-md">
-              <span className="text-xl font-bold">
-                Y
-              </span>
-            </div>
-
-            {/* Original Content */}
-            <div className="hidden text-left sm:block">
-              <div className="font-display text-lg font-semibold leading-tight text-white">
-                Your Name
-              </div>
-
-              <div className="text-[11px] tracking-wide text-white/60">
-                Your Original Content
-              </div>
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-white shadow-md">
+              <img
+                src="./logo.png"
+                alt="Logo"
+                className="h-full w-full rounded-full object-cover"
+              />
             </div>
           </button>
 
@@ -98,15 +98,15 @@ export default function Nav() {
                 onClick={() =>
                   setGalleryOpen((prev) => !prev)
                 }
-                className="flex items-center gap-1.5 text-sm font-medium text-white/85 transition-colors hover:text-white"
+                className="flex cursor-pointer items-center gap-1.5 text-sm font-medium text-white/90 transition-colors duration-200 hover:text-orange-400"
               >
-                Gallery
+                गैलरी
 
                 <ChevronDown
                   size={15}
-                  className={`transition-transform duration-200 ${
+                  className={`transition-all duration-200 ${
                     galleryOpen
-                      ? "rotate-180"
+                      ? "rotate-180 text-orange-400"
                       : ""
                   }`}
                 />
@@ -140,7 +140,7 @@ export default function Nav() {
                           onClick={() =>
                             scrollToSection(id)
                           }
-                          className="block w-full rounded-lg px-4 py-3 text-left text-sm text-gray-700 transition-colors hover:bg-orange-50 hover:text-orange-600"
+                          className="block w-full cursor-pointer rounded-lg px-4 py-3 text-left text-sm text-gray-700 transition-colors duration-200 hover:bg-orange-50 hover:text-orange-600"
                         >
                           {label}
                         </button>
@@ -151,28 +151,28 @@ export default function Nav() {
               </AnimatePresence>
             </div>
 
-            {/* ORIGINAL LINKS */}
+            {/* NAVIGATION LINKS */}
             {links.map(([label, id]) => (
               <button
                 key={id}
                 onClick={() =>
                   scrollToSection(id)
                 }
-                className="text-sm font-medium text-white/85 transition-colors hover:text-white"
+                className="cursor-pointer text-sm font-medium text-white/90 transition-colors duration-200 hover:text-orange-400"
               >
                 {label}
               </button>
             ))}
           </nav>
 
-          {/* DESKTOP CTA */}
+          {/* JAN-SUJAV PORTAL */}
           <Button
             onClick={() =>
               scrollToSection("jan-sujav")
             }
-            className="hidden rounded-lg bg-orange-500 px-5 font-semibold text-white shadow-md transition-all hover:bg-orange-600 hover:shadow-lg lg:flex"
+            className="hidden cursor-pointer rounded-lg bg-orange-500 px-5 font-semibold text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg lg:flex"
           >
-            Jan-Sujav Portal
+            जन-सुझाव पोर्टल
           </Button>
 
           {/* MOBILE MENU BUTTON */}
@@ -180,13 +180,13 @@ export default function Nav() {
             onClick={() =>
               setMobileOpen((prev) => !prev)
             }
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-white lg:hidden"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-white transition-colors duration-200 hover:text-orange-400 lg:hidden"
             aria-label="Toggle navigation"
           >
             {mobileOpen ? (
-              <X size={25} />
+              <X size={24} />
             ) : (
-              <Menu size={25} />
+              <Menu size={24} />
             )}
           </button>
         </div>
@@ -211,24 +211,24 @@ export default function Nav() {
             transition={{
               duration: 0.25,
             }}
-            className="overflow-hidden border-b border-white/10 bg-[#172747] lg:hidden"
+            className="overflow-hidden border-b border-white/10 bg-[#172747]/85 backdrop-blur-xl lg:hidden"
           >
-            <nav className="mx-auto flex max-w-7xl flex-col px-5 py-5">
+            <nav className="mx-auto flex max-w-7xl flex-col px-5 py-4">
 
-              {/* GALLERY */}
+              {/* MOBILE GALLERY */}
               <button
                 onClick={() =>
                   setGalleryOpen((prev) => !prev)
                 }
-                className="flex items-center justify-between rounded-lg px-3 py-3 text-left text-sm font-medium text-white/90 hover:bg-white/5"
+                className="flex cursor-pointer items-center justify-between rounded-lg px-3 py-3 text-left text-sm font-medium text-white/90 transition-colors duration-200 hover:bg-white/5 hover:text-orange-400"
               >
-                <span>Gallery</span>
+                <span>गैलरी</span>
 
                 <ChevronDown
                   size={17}
-                  className={`transition-transform ${
+                  className={`transition-all duration-200 ${
                     galleryOpen
-                      ? "rotate-180"
+                      ? "rotate-180 text-orange-400"
                       : ""
                   }`}
                 />
@@ -250,6 +250,9 @@ export default function Nav() {
                       opacity: 0,
                       height: 0,
                     }}
+                    transition={{
+                      duration: 0.2,
+                    }}
                     className="ml-4 overflow-hidden"
                   >
                     {galleryLinks.map(
@@ -259,7 +262,7 @@ export default function Nav() {
                           onClick={() =>
                             scrollToSection(id)
                           }
-                          className="block w-full rounded-lg px-4 py-2.5 text-left text-sm text-white/60 hover:bg-white/5 hover:text-white"
+                          className="block w-full cursor-pointer rounded-lg px-4 py-2.5 text-left text-sm text-white/60 transition-colors duration-200 hover:bg-white/5 hover:text-orange-400"
                         >
                           {label}
                         </button>
@@ -269,27 +272,27 @@ export default function Nav() {
                 )}
               </AnimatePresence>
 
-              {/* ORIGINAL LINKS */}
+              {/* MOBILE NAVIGATION LINKS */}
               {links.map(([label, id]) => (
                 <button
                   key={id}
                   onClick={() =>
                     scrollToSection(id)
                   }
-                  className="rounded-lg px-3 py-3 text-left text-sm font-medium text-white/90 transition-colors hover:bg-white/5"
+                  className="cursor-pointer rounded-lg px-3 py-3 text-left text-sm font-medium text-white/90 transition-colors duration-200 hover:bg-white/5 hover:text-orange-400"
                 >
                   {label}
                 </button>
               ))}
 
-              {/* JAN-SUJAV PORTAL */}
+              {/* MOBILE JAN-SUJAV */}
               <button
                 onClick={() =>
                   scrollToSection("jan-sujav")
                 }
-                className="mt-3 rounded-lg bg-orange-500 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-orange-600"
+                className="mt-3 cursor-pointer rounded-lg bg-orange-500 px-4 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-orange-600"
               >
-                Jan-Sujav Portal
+                जन-सुझाव पोर्टल
               </button>
             </nav>
           </motion.div>
