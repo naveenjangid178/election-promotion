@@ -1,27 +1,20 @@
-import Nav from "@/components/sections/Nav"
-import Hero from "@/components/sections/Hero"
-import About from "@/components/sections/About"
-import Timeline from "@/components/sections/Timeline"
-import Gallery from "@/components/sections/Gallery"
-import Contact from "@/components/sections/Contact"
-import ManifestoSection from "./components/sections/Manifesto"
-import StepsTowardsChange from "./components/sections/StepsTowardsChange"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Nav from "./components/sections/Nav";
 import Footer from "./components/sections/Footer"
+import Home from "./pages/Home";
+import JanSujhav from "./pages/JanSujhav";
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen bg-sand text-ink">
+    <BrowserRouter>
       <Nav />
-      <Hero />
-      <About />
-      <ManifestoSection />
-      <StepsTowardsChange />
-      <Timeline />
-      <Gallery />
-      <Contact />
-      <Footer />
-    </div>
-  )
-}
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-export default App
+        <Route path="/jan-sujhav" element={<JanSujhav />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
+}

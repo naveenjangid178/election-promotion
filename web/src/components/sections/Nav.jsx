@@ -1,11 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import {
-  Menu,
-  X,
-  ChevronDown,
-} from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
+import { useNavigate, useLocation } from "react-router-dom"
 
 const links = [
   ["हमारे बारे में", "about"],
@@ -24,6 +21,9 @@ export default function Nav() {
   const [galleryOpen, setGalleryOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
+  const navigate = useNavigate()
+  const location = useLocation()
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30)
@@ -38,13 +38,48 @@ export default function Nav() {
     }
   }, [])
 
+  // Navigate to homepage section
   const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-    })
-
     setMobileOpen(false)
     setGalleryOpen(false)
+
+    // Already on homepage
+    if (location.pathname === "/") {
+      document.getElementById(id)?.scrollIntoView({
+        behavior: "smooth",
+      })
+
+      return
+    }
+
+    // Coming from another page
+    navigate(`/#${id}`)
+
+    // Wait for homepage to render
+    setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({
+        behavior: "smooth",
+      })
+    }, 300)
+  }
+
+  // Navigate to Jan-Sujhav portal
+  const openJanSujhav = () => {
+    setMobileOpen(false)
+    setGalleryOpen(false)
+    navigate("/jan-sujhav")
+  }
+
+  // Navigate home
+  const goHome = () => {
+    setMobileOpen(false)
+    setGalleryOpen(false)
+
+    if (location.pathname === "/") {
+      scrollToSection("home")
+    } else {
+      navigate("/")
+    }
   }
 
   return (
@@ -73,13 +108,14 @@ export default function Nav() {
 
           {/* LOGO */}
           <button
-            onClick={() => scrollToSection("home")}
+            onClick={goHome}
             className="flex cursor-pointer items-center gap-3"
+            aria-label="मुख्य पृष्ठ"
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-white shadow-md">
               <img
                 src="./logo.png"
-                alt="Logo"
+                alt="रविंद्र कुमार"
                 className="h-full w-full rounded-full object-cover"
               />
             </div>
@@ -133,19 +169,17 @@ export default function Nav() {
                     }}
                     className="absolute left-1/2 mt-4 w-44 -translate-x-1/2 rounded-xl border border-black/10 bg-white p-2 shadow-xl"
                   >
-                    {galleryLinks.map(
-                      ([label, id]) => (
-                        <button
-                          key={id}
-                          onClick={() =>
-                            scrollToSection(id)
-                          }
-                          className="block w-full cursor-pointer rounded-lg px-4 py-3 text-left text-sm text-gray-700 transition-colors duration-200 hover:bg-orange-50 hover:text-orange-600"
-                        >
-                          {label}
-                        </button>
-                      )
-                    )}
+                    {galleryLinks.map(([label, id]) => (
+                      <button
+                        key={id}
+                        onClick={() =>
+                          scrollToSection(id)
+                        }
+                        className="block w-full cursor-pointer rounded-lg px-4 py-3 text-left text-sm text-gray-700 transition-colors duration-200 hover:bg-orange-50 hover:text-orange-600"
+                      >
+                        {label}
+                      </button>
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -167,9 +201,7 @@ export default function Nav() {
 
           {/* JAN-SUJAV PORTAL */}
           <Button
-            onClick={() =>
-              scrollToSection("jan-sujav")
-            }
+            onClick={openJanSujhav}
             className="hidden cursor-pointer rounded-lg bg-orange-500 px-5 font-semibold text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg lg:flex"
           >
             जन-सुझाव पोर्टल
@@ -255,19 +287,17 @@ export default function Nav() {
                     }}
                     className="ml-4 overflow-hidden"
                   >
-                    {galleryLinks.map(
-                      ([label, id]) => (
-                        <button
-                          key={id}
-                          onClick={() =>
-                            scrollToSection(id)
-                          }
-                          className="block w-full cursor-pointer rounded-lg px-4 py-2.5 text-left text-sm text-white/60 transition-colors duration-200 hover:bg-white/5 hover:text-orange-400"
-                        >
-                          {label}
-                        </button>
-                      )
-                    )}
+                    {galleryLinks.map(([label, id]) => (
+                      <button
+                        key={id}
+                        onClick={() =>
+                          scrollToSection(id)
+                        }
+                        className="block w-full cursor-pointer rounded-lg px-4 py-2.5 text-left text-sm text-white/60 transition-colors duration-200 hover:bg-white/5 hover:text-orange-400"
+                      >
+                        {label}
+                      </button>
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -287,9 +317,7 @@ export default function Nav() {
 
               {/* MOBILE JAN-SUJAV */}
               <button
-                onClick={() =>
-                  scrollToSection("jan-sujav")
-                }
+                onClick={openJanSujhav}
                 className="mt-3 cursor-pointer rounded-lg bg-orange-500 px-4 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-orange-600"
               >
                 जन-सुझाव पोर्टल
